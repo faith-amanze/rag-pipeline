@@ -1,37 +1,71 @@
-# RAG Pipeline: ingest -> index -> hybrid retrieve -> grounded, cited answers
+# RAG Pipeline: ingest, index, hybrid retrieve, cited answers
 
-Stack: Python, sentence-transformers (BGE) embeddings, FAISS, BM25 + reciprocal-rank-fusion hybrid search,
-optional cross-encoder rerank, any OpenAI-compatible LLM (OpenAI, or local Llama via Ollama/vLLM).
+A retrieval-augmented generation pipeline over a small knowledge base on technology, misinformation and privacy (Reuters Institute *Digital News Report 2026* and Pew Research Center privacy studies). It ingests documents, builds a vector index, retrieves relevant chunks, and answers with `[S#]` citations and a confidence line, refusing when the documents don't contain the answer.
+
+**Stack:** Python, sentence-transformers (`BAAI/bge-small-en-v1.5`), FAISS, BM25 + reciprocal-rank fusion, cross-encoder reranking, and any OpenAI-compatible LLM (tested with `openai/gpt-oss-120b` on Groq).
 
 ```
-kb/ (pdf, md, txt, html) --ingest.py--> data/chunks.jsonl --index.py--> data/index.faiss
-question --retrieve_generate.py--> hybrid top-k -> rerank -> prompt with [S#] ids -> LLM -> answer + citations + confidence
-eval_set.jsonl --eval.py--> hit@k, recall@k, MRR, correctness, faithfulness, citation + abstention checks
+kb/ (pdf, html, md, txt) --ingest.py--> data/chunks.jsonl --index.py--> data/index.faiss
+question --retrieve_generate.py--> hybrid top-k -> rerank -> grounded prompt -> LLM -> answer + citations
+eval_set.jsonl --eval.py--> retrieval and generation metrics
 ```
-
-## Quickstart
-```bash
-pip install -r requirements.txt
-export OPENAI_API_KEY=sk-...                 # or a dummy key + OPENAI_BASE_URL=http://localhost:11434/v1
-export LLM_MODEL=gpt-4o-mini                 # or llama3.1 for Ollama
-
-cp your_docs/* kb/
-python ingest.py --kb kb                     # clean + chunk (500 tok, 80 overlap) + metadata
-python index.py                              # embed + FAISS
-python index.py --test "sample query"        # sanity check similarity search
-python retrieve_generate.py "your question"  # answer with citations
-python retrieve_generate.py                  # interactive
-
-cp eval_set.example.jsonl eval_set.jsonl     # write 30-50 real questions
-python eval.py --eval eval_set.jsonl --ablate
-```
-
-## Design notes
-- **Chunking:** paragraph-aware, 500 tokens, 80 overlap; metadata = source, title, page, date, optional URL (`--url-map`).
-- **Retrieval:** dense (BGE with query instruction) + BM25 fused with RRF, candidate pool 4k, cross-encoder rerank to top-k (k=3-8).
-- **Prompt:** context-only rule, mandatory `[S#]` citations, exact refusal string, confidence line. Token budget enforced in `build_context` (best chunks first, last one truncated).
-- **Eval:** retrieval (hit@k / recall@k / MRR, with dense vs hybrid vs rerank ablation) and generation (LLM-judged correctness + faithfulness, citation validity, correct abstention on out-of-KB questions).
-- Swap-outs: embeddings -> OpenAI/Cohere (edit `index.py`), vector DB -> Pinecone/Weaviate/Milvus (replace FAISS calls in `index.py` and `Retriever`).
 
 ## Demo
-Run the interactive mode and record a GIF (e.g. with `asciinema` + `agg`, or ScreenToGif) showing 3 queries: a factoid, a multi-chunk question and an out-of-KB question that is refused. Save as `demo.gif`.
+| Factoid | Multi-source | Out-of-scope refusal |
+|---|---|---|
+| ![factoid](demo/factoid.png) | ![multi](demo/multi_source.png) | ![refusal](demo/refusal.png) |
+
+## Quickstart (Windows PowerShell)
+Requires Python 3.12 (some dependencies do not yet support newer versions).
+```powershell
+python -m venv venv            # or: py -3.12 -m venv venv
+venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+
+# LLM: any OpenAI-compatible endpoint. Example with Groq (use your own key):
+$env:OPENAI_API_KEY="<your key>"
+$env:OPENAI_BASE_URL="https://api.groq.com/openai/v1"
+$env:LLM_MODEL="openai/gpt-oss-120b"     # check current names:
+# python -c "from openai import OpenAI; [print(m.id) for m in OpenAI().models.list().data]"
+
+python fetch_kb.py             # downloads the sample documents into kb/
+python ingest.py --kb kb       # clean + chunk (500 tokens, 80 overlap)
+python index.py                # embed + FAISS index
+python retrieve_generate.py "What percentage of Americans always or often read privacy policies?"
+```
+Never commit your API key. It is read from environment variables only.
+
+## Evaluation
+```powershell
+python eval.py --eval eval_set.jsonl --ablate    # dense vs hybrid vs hybrid+rerank, plus generation metrics
+```
+16 questions (12 answerable, 4 out-of-scope). Full analysis in [EVAL_REPORT.md](EVAL_REPORT.md).
+
+| Retrieval (k=5) | hit@5 | MRR |
+|---|---|---|
+| Dense only | 1.00 | 1.000 |
+| Hybrid | 1.00 | 0.958 |
+| Hybrid + rerank | 1.00 | 0.958 |
+
+| Generation | Score |
+|---|---|
+| Correct | 0.917 |
+| Faithful | 0.917 |
+| Valid citations | 1.00 |
+| Correct refusals | 1.00 |
+
+Key finding: aggregate scores hid two real failures, a "countries" vs "markets" vocabulary mismatch that caused a wrong refusal, and a wider context (k=10) that led the model to report a 40-country subset as the total. See the report.
+
+## Files
+| File | Purpose |
+|---|---|
+| `fetch_kb.py` | Downloads the sample knowledge base into `kb/` |
+| `ingest.py` | Parsing, cleaning, chunking, metadata |
+| `index.py` | Embeddings and FAISS index (`--test "query"` for a sanity check) |
+| `retrieve_generate.py` | Hybrid retriever, reranker, prompt, LLM call, citations |
+| `eval.py`, `eval_set.jsonl` | Retrieval and generation evaluation |
+| `debug_ranks.py` | Lists questions where the right document was not ranked first |
+| `EVAL_REPORT.md` | Evaluation report and reflection |
+
+## Limitations
+Small eval set (one miss is about 8 points), document-level retrieval metrics, and the generator also acts as the judge.
