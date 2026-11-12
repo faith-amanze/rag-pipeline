@@ -1,0 +1,152 @@
+[
+ {
+  "q": "What share of Americans say their personal information is less secure than it was five years ago?",
+  "answer": "Seventy\u202fpercent of U.S. adults \u2014 about seven\u2011in\u2011ten \u2014 say their personal information is less secure than it was five years ago[S1][S4].  \nConfidence: High \u2013 multiple sections of the provided documents give the same figure.",
+  "cited": [
+   "pew_2019_how_americans_think_about_privacy.html",
+   "pew_2019_how_americans_think_about_privacy.html"
+  ],
+  "abstained": false,
+  "correct": 1,
+  "faithful": 1
+ },
+ {
+  "q": "How many U.S. adults were surveyed in Pew's June 2019 study on privacy and surveillance?",
+  "answer": "The June\u202f2019 Pew study on privacy and surveillance surveyed 4,272 U.S. adults[S1][S3].  \nConfidence: High \u2013 the number is explicitly stated in the provided documents.",
+  "cited": [
+   "pew_2020_opting_out_privacy_concerns.html",
+   "pew_2019_key_takeaways_privacy_surveillance.html"
+  ],
+  "abstained": false,
+  "correct": 1,
+  "faithful": 1
+ },
+ {
+  "q": "What percentage of Americans say they never read privacy policies before agreeing to them?",
+  "answer": "36% of Americans say they never read privacy policies before agreeing to them. [S1]  \n\nConfidence: High - directly stated in the provided source.",
+  "cited": [
+   "pew_2019_key_takeaways_privacy_surveillance.html"
+  ],
+  "abstained": false,
+  "correct": 1,
+  "faithful": 1
+ },
+ {
+  "q": "What percentage of Americans say they always or often read privacy policies?",
+  "answer": "About\u202f20\u202fpercent of U.S. adults say they always (9\u202f%) or often (13\u202f%) read privacy policies before agreeing to them[S1].  \nConfidence: High \u2013 the figure is directly stated in the provided source.",
+  "cited": [
+   "pew_2019_key_takeaways_privacy_surveillance.html"
+  ],
+  "abstained": false,
+  "correct": 1,
+  "faithful": 1
+ },
+ {
+  "q": "What share of Americans are concerned about social media sites knowing personal information about children?",
+  "answer": "89% of Americans are concerned about social media sites knowing personal information about children. [S1]  \nConfidence: High - directly stated in the provided source.",
+  "cited": [
+   "pew_2023_key_findings_data_privacy.html"
+  ],
+  "abstained": false,
+  "correct": 1,
+  "faithful": 1
+ },
+ {
+  "q": "What share of Americans are concerned about advertisers using data about children's online activities to target ads to them?",
+  "answer": "85% of Americans say they are concerned about advertisers using data about children\u2019s online activities to target ads to them. [S2]",
+  "cited": [
+   "pew_2023_key_findings_data_privacy.html"
+  ],
+  "abstained": false,
+  "correct": 1,
+  "faithful": 1
+ },
+ {
+  "q": "How many U.S. adults were surveyed in Pew's 2023 data privacy study?",
+  "answer": "5,101 U.S. adults were surveyed in Pew\u2019s 2023 data\u2011privacy study. [S1]\n\nConfidence: High \u2013 the figure is directly stated in the source.",
+  "cited": [
+   "pew_2023_key_findings_data_privacy.html"
+  ],
+  "abstained": false,
+  "correct": 1,
+  "faithful": 1
+ },
+ {
+  "q": "What did a 2013 Pew phone survey find about internet users' views on whether laws protect privacy online well enough?",
+  "answer": "The 2013 Pew phone survey reported that\u202f68\u202fpercent of internet users said they believed the existing laws did not provide adequate protection for people\u2019s privacy online[S1].  \nConfidence: High \u2013 directly stated in the source.",
+  "cited": [
+   "pew_2019_key_takeaways_privacy_surveillance.html"
+  ],
+  "abstained": false,
+  "correct": 1,
+  "faithful": 1
+ },
+ {
+  "q": "What share of Americans have decided not to use a product or service because of privacy concerns?",
+  "answer": "About\u202f52\u202f% of U.S. adults said they had recently decided not to use a product or service because they were worried about how much personal information would be collected about them[S1].  \nConfidence: High \u2013 the figure is directly stated in the source.",
+  "cited": [
+   "pew_2020_opting_out_privacy_concerns.html"
+  ],
+  "abstained": false,
+  "correct": 1,
+  "faithful": 1
+ },
+ {
+  "q": "How many countries does the Reuters Institute Digital News Report 2026 cover?",
+  "answer": "I don't know based on the provided documents.  \nConfidence: High - the supplied excerpts do not state the number of countries covered in the 2026 report.",
+  "cited": [],
+  "abstained": true,
+  "correct": 0,
+  "faithful": 0
+ },
+ {
+  "q": "Which edition of the Reuters Institute Digital News Report is the 2026 report?",
+  "answer": "The 2026 Digital News Report is the fifteenth edition of the Reuters Institute Digital News Report[S1].  \nConfidence: High \u2013 the source explicitly states the edition number.",
+  "cited": [
+   "reuters_dnr_2026_full_report.pdf"
+  ],
+  "abstained": false,
+  "correct": 1,
+  "faithful": 1
+ },
+ {
+  "q": "What does the 2026 Digital News Report find about third-party platforms compared with direct use of news sites?",
+  "answer": "The 2026 Digital News Report shows that\u202fthird\u2011party platforms\u202f\u2013 chiefly social\u2011media sites, video\u2011sharing networks and, increasingly, AI chatbots \u2013 have become the dominant way people get news.  In 2026 they reach about\u202f54\u202fpercent of global audiences (56\u202fpercent when AI chatbots are counted) and are now the most widely used news source, overtaking both TV news and the news organisations\u2019 own websites and apps.  At the same time, direct use of news sites and apps has continued to fall, losing roughly\u202f12\u202fpercentage points of reach since 2020\u202f[S1][S2][S3].\n\nConfidence: High \u2013 the cited passages directly state the comparison.",
+  "cited": [
+   "reuters_dnr_2026_executive_summary.html",
+   "reuters_dnr_2026_full_report.pdf",
+   "reuters_dnr_2026_full_report.pdf"
+  ],
+  "abstained": false,
+  "correct": 1,
+  "faithful": 1
+ },
+ {
+  "q": "What is the capital of Australia?",
+  "answer": "I don't know based on the provided documents.  \nConfidence: Low - the provided excerpts contain no information about the capital of Australia.",
+  "cited": [],
+  "abstained": true,
+  "abstain_ok": 1
+ },
+ {
+  "q": "Who won the 2022 FIFA World Cup?",
+  "answer": "I don't know based on the provided documents.  \nConfidence: High - the documents do not contain the answer.",
+  "cited": [],
+  "abstained": true,
+  "abstain_ok": 1
+ },
+ {
+  "q": "What is the recommended daily intake of vitamin D for adults?",
+  "answer": "I don't know based on the provided documents.  \nConfidence: Low - the documents contain no information about vitamin D intake.",
+  "cited": [],
+  "abstained": true,
+  "abstain_ok": 1
+ },
+ {
+  "q": "What is the GDP of Nigeria?",
+  "answer": "I don't know based on the provided documents.  \nConfidence: High - the supplied excerpts contain no GDP figures for Nigeria.",
+  "cited": [],
+  "abstained": true,
+  "abstain_ok": 1
+ }
+]

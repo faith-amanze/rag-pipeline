@@ -1,0 +1,14 @@
+{
+ "retrieval": {
+  "hit@5": 1,
+  "recall@5": 1.0,
+  "MRR": 0.9583333333333334
+ },
+ "generation": {
+  "correct": 0.9166666666666666,
+  "faithful": 0.9166666666666666,
+  "cite_valid": 1,
+  "cite_hits_gold": 0.9166666666666666,
+  "abstain_ok": 1
+ }
+}
