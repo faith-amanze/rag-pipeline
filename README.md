@@ -1,4 +1,4 @@
-# RAG Pipeline: ingest, index, hybrid retrieve, cited answers
+﻿# RAG Pipeline: ingest, index, hybrid retrieve, cited answers
 
 A retrieval-augmented generation pipeline over a small knowledge base on technology, misinformation and privacy (Reuters Institute *Digital News Report 2026* and Pew Research Center privacy studies). It ingests documents, builds a vector index, retrieves relevant chunks, and answers with `\[S#]` citations and a confidence line, refusing when the documents don't contain the answer.
 
@@ -12,29 +12,17 @@ eval\_set.jsonl --eval.py--> retrieval and generation metrics
 
 ## Demo
 
-\*\*Factoid question\*\* (answer and cited sources)
+**Factoid question** (answer and cited sources)
 
+![factoid](demo/factoid.png)
 
+**Multi-source question** (answer combining the executive summary and the full report)
 
-!\[factoid](demo/factoid.png)
+![multi-source](demo/multi_source.png)
 
+**Out-of-scope question** (the system refuses; note the negative reranker scores)
 
-
-\*\*Multi-source question\*\* (answer combining the executive summary and the full report)
-
-
-
-!\[multi-source](demo/multi\_source.png)
-
-
-
-\*\*Out-of-scope question\*\* (the system refuses; note the negative reranker scores)
-
-
-
-!\[refusal](demo/refusal.png)
-
-## 
+![refusal](demo/refusal.png)
 
 ## Quickstart (Windows PowerShell)
 
@@ -97,4 +85,5 @@ Key finding: aggregate scores hid two real failures, a "countries" vs "markets" 
 ## Limitations
 
 Small eval set (one miss is about 8 points), document-level retrieval metrics, and the generator also acts as the judge.
+
 
